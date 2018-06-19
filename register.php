@@ -1,9 +1,10 @@
 <?php
 
+include("includes/config.php");
 include("includes/classes/Account.php");
 include("includes/classes/Constants.php");
 
-$account = new Account();
+$account = new Account($conn);
 
 include("includes/handlers/register-handler.php");
 include("includes/handlers/login-handler.php");
@@ -30,12 +31,14 @@ function getValue($value){
 		<p><label for="loginPassword">Password</label>
 		<input id="loginPassword" type="password" name="loginPassword" required></p>
 		<button type="submit" name="loginButton">Log In</button>
+		<?php echo $account->checkError(Constants::$loginFailed); ?>
 	</form>
 
 	<form id="registerForm" action="register.php" method="POST">
 		<h2>Create Your Free Account</h2>
 		<p>
 		<?php echo $account->checkError(Constants::$userNameCharacters); ?>
+		<?php echo $account->checkError(Constants::$userNameTaken); ?>
 		<label for="userName">Username</label>
 		<input id="userName" type="text" name="userName" placeholder="e.g. canjeev25" value="<?php getValue('userName') ?>" required></p>
 		<p><?php echo $account->checkError(Constants::$firstNameCharacters); ?><label for="firstName">First Name</label>
@@ -44,6 +47,7 @@ function getValue($value){
 		<input id="lastName" type="text" name="lastName" placeholder="Chintakindi" value="<?php getValue('lastName') ?>" required></p>
 		<p><?php echo $account->checkError(Constants::$emailsDoNotMatch); ?>
 		<?php echo $account->checkError(Constants::$emailInvalid); ?><label for="email">Email</label>
+		<?php echo $account->checkError(Constants::$emailAlreadyRegistered); ?>
 		<input id="email" type="email" name="email" placeholder="sanjeevkumarchintakindi@gmail.com" value="<?php getValue('email') ?>" required></p>
 		<p><label for="confirmEmail">Confirm Email</label>
 		<input id="confirmEmail" type="email" name="confirmEmail" placeholder="sanjeevkumarchintakindi@gmail.com" value="<?php getValue('confirmEmail') ?>" required></p>

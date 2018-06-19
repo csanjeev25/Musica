@@ -1,14 +1,13 @@
 <?php
 
-/**
- * 
- */
 class Account{
 
 	private $errorArray;
+	private $conn;
 
-	public function __construct(){	
+	public function __construct($conn){	
 		$this->errorArray = array();
+		$this->conn = $conn;
 	}
 
 	public function register($username,$name,$lastName,$email1,$email2,$pass1,$pass2){
@@ -20,11 +19,21 @@ class Account{
 
 		if(empty($this->errorArray) == true){
 			//insert to db
-			return true;
+			return $this->insertUserDetails($username,$name,$lastName,$email1,$pass1);
 		}else{
 			return false;
 		}
 	}
+
+	private function insertUserDetails($un,$fn,$ln,$email,$pass){
+		$encryptedPw = md5($pass);
+		$profilePic = "assets/images/profile-pics/head_emerald.png";
+		$date = date("Y-m-d H:i:s");
+
+		$result = mysqli_query($this->conn,"INSERT INTO users VALUES ('','$un','$fn','$ln','$email','$encryptedPw','$date','$profilePic')");
+		return $result;
+	}
+
 
 	public function checkError($error){
 		if(!in_array($error, $this->errorArray)){
@@ -36,6 +45,12 @@ class Account{
 	private function validateUsername($username){
 		if(strlen($username) > 25 || strlen($username) < 5){
 			array_push($this->errorArray, Constants::$userNameCharacters);
+			return;
+		}
+
+		$checkUserNameQuery = mysqli_query($this->conn,"SELECT username FROM users WHERE username='$username'");
+		if(mysqli_num_rows($checkUserNameQuery) != 0){
+			array_push($this->errorArray, Constants::$userNameTaken);
 			return;
 		}
 	}
@@ -64,6 +79,12 @@ class Account{
 			array_push($this->errorArray, Constants::$emailInvalid);
 			return;
 		}
+
+		$checkEmailQuery = mysqli_query($this->conn,"SELECT email FROM users WHERE email = '$email1'");
+		if(mysqli_num_rows($checkEmailQuery) != 0){
+			array_push($this->errorArray, Constants::$emailAlreadyRegistered);
+			return;
+		}
 	}
 
 	private function validatePasswords($pass1,$pass2){
@@ -80,6 +101,18 @@ class Account{
 		if(strlen($pass1) > 25 || strlen($pass1) < 5){
 			array_push($this->errorArray, Constants::$passwordCharacter);
 			return;
+		}
+	}
+
+	public function login($username,$password){
+		$encryptedPw = md5($password);
+
+		$query = mysqli_query($this->conn,"SELECT * FROM users WHERE username = '$username' AND password = '$encryptedPw'");
+		if(mysqli_num_rows($query) == 1){
+			return true;
+		}else{
+			array_push($this->errorArray, Constants::$loginFailed);
+			return false;
 		}
 	}
 }
