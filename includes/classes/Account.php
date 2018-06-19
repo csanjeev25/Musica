@@ -2,11 +2,13 @@
 
 class Account{
 
-	private $errorArray;
+	public $errorArray;
+	public $loginErrorArray;
 	private $conn;
 
 	public function __construct($conn){	
 		$this->errorArray = array();
+		$this->loginErrorArray = array();
 		$this->conn = $conn;
 	}
 
@@ -50,7 +52,7 @@ class Account{
 
 		$checkUserNameQuery = mysqli_query($this->conn,"SELECT username FROM users WHERE username='$username'");
 		if(mysqli_num_rows($checkUserNameQuery) != 0){
-			array_push($this->errorArray, Constants::$userNameTaken);
+			array_push($this->loginErrorArray, Constants::$userNameTaken);
 			return;
 		}
 	}
@@ -111,7 +113,7 @@ class Account{
 		if(mysqli_num_rows($query) == 1){
 			return true;
 		}else{
-			array_push($this->errorArray, Constants::$loginFailed);
+			array_push($this->loginErrorArray, Constants::$loginFailed);
 			return false;
 		}
 	}
