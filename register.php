@@ -29,14 +29,12 @@ function getValue($value){
 
 	<?php
 		if(isset($_POST['registerButton'])){
-			unset($account->loginErrorArray);
 			echo '<script> $(document).ready(function(){ 
 				$("#loginForm").hide();
 				$("#registerForm").show();
 				});
 				</script>';
 		}else{
-			unset($account->errorArray);
 			echo '<script> 
 				$(document).ready(function(){
 				$("#loginForm").show();
