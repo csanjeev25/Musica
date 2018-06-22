@@ -11,11 +11,11 @@
 					<div class="trackInfo">
 
 						<span class="trackName">
-							<span>Happy Birthday</span>
+							<span>Demons</span>
 						</span>
 
 						<span class="artistName">
-							<span>Reece Kenney</span>
+							<span>Imagine Dragons</span>
 						</span>
 
 					</div>

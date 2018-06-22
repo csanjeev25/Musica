@@ -7,14 +7,21 @@
 		header("Location: index.php");
 	}
 
-	$albumQuery = mysqli_query($conn,"SELECT * FROM albums WHERE id = '$albumId'");
-	$album = mysqli_fetch_array($albumQuery);
+	$album = new Album($conn,$albumId);
 
-	$artistId = $album['artist'];
+	$artist = $album->getArtist();
 
-	$artistQuery = mysqli_query($conn,"SELECT name FROM artists WHERE id='$artistId'");
-	$artist = mysqli_fetch_array($artistQuery);
-	echo $artist['name'];
  ?>
+
+ <div class="entityInfo">
+ 	<div class="leftSection">
+ 		<img src="<?php echo $album->getArtworkPath(); ?>">
+ 	</div>
+ 	<div class="rightSection">
+ 		<h3><?php echo $album->getTitle(); ?></h3>
+ 		<p>By <?php echo $artist->getName();?></p>
+ 		<p><?php echo $album->getSongCount()." songs";?></p>
+ 	</div>
+ </div>
 
 <?php include("includes/footer.php"); ?>
