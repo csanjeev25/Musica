@@ -60,4 +60,6 @@
 		return $genre['name'];
 	}
 
+}
+
 ?>

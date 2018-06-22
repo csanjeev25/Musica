@@ -43,6 +43,18 @@
 			return mysqli_num_rows($songCountQuery);
 		}
 
+		public function getSongIds(){
+			$songIdQuery = mysqli_query($this->conn,"SELECT id from songs WHERE album='$this->id' ORDER BY albumOrder ASC");
+
+			$songArray = array();
+
+			while($row = mysqli_fetch_array($songIdQuery)){
+				array_push($songArray, $row['id']);
+			}
+
+			return $songArray;
+		}
+
 
 	}
 
