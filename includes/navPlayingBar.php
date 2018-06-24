@@ -17,6 +17,10 @@
  		setTrack(currentPlaylistArray[0],currentPlaylistArray,false);
  		updateVolumeProgressBar(audioElement.audio);
 
+ 		$("#nowPlayingBarContainer").on("mousedown touchstart movedown touchmove",function(e){
+ 			e.preventDefault();
+ 		});
+
  		$(".playbackBar .progressBar").mousedown(function(){
  			mouseDown = true;
  		});
@@ -60,7 +64,47 @@
  		audioElement.setTime(seconds);
  	}
 
+ 	function nextSong(){
+ 		if(repeatState == true){
+ 			audioElement.setTime(0);
+ 			playSong();
+ 			return;
+ 		}
+ 		previousIndex = currentIndex;
+ 		if(currentIndex == currentPlaylistArray.length - 1){
+ 			currentIndex = 0;
+ 		}else{
+ 			currentIndex++;
+ 		}
+
+ 		var trackToPlay = currentPlaylistArray[currentIndex];
+ 		setTrack(trackToPlay,currentPlaylistArray,true);
+ 	}
+
+ 	function previousSong(){
+ 		if(audioElement.audio.currentTime >=3 || currentIndex == 0){
+ 			audioElement.setTime(0);
+ 		}else{
+ 			currentIndex = currentIndex - 1;
+ 			setTrack(currentPlaylistArray[currentIndex],currentPlaylistArray,true);
+ 		}
+ 	}
+
+
  	function setTrack(trackId,newPlaylist,play){
+
+ 		if(newPlaylist == currentPlaylistArray){
+ 			currentPlaylistArray = newPlaylist;
+ 			shufflePlaylistArray = currentPlaylistArray.slice();
+ 			shuffleArray(shufflePlaylistArray);
+ 		}
+
+ 		if(shuffle){
+ 			currentIndex = shufflePlaylistArray.indexOf(trackId);
+ 		}
+
+ 		currentIndex = currentPlaylistArray.indexOf(trackId);
+ 		pauseSong();
  		
  		$.post("includes/handlers/ajax/getSongJSON.php",{songId:trackId},function(data){
  			var track = JSON.parse(data);
@@ -101,6 +145,41 @@
  		$(".controlButton.pause").hide();
  		audioElement.pause();
  	}
+
+ 	function setRepeat(){
+ 		repeatState = !repeatState;
+ 		var imageName = repeatState ? "repeat-active.png" : "repeat.png";
+ 		$(".controlButton.repeat img").attr("src","assets/images/icons/" + imageName);
+ 	}
+
+ 	function setMute(){
+ 		audioElement.audio.muted = !audioElement.audio.muted; 
+ 		var imageName = audioElement.audio.muted ? "volume-mute.png" : "volume.png";
+ 		$(".controlButton.volume img").attr("src","assets/images/icons/" + imageName);
+ 	}
+
+ 	function setShuffle(){
+ 		shuffle = !shuffle; 
+ 		var imageName = shuffle ? "shuffle-active.png" : "shuffle.png";
+ 		$(".controlButton.shuffle img").attr("src","assets/images/icons/" + imageName);
+
+ 		if(shuffle){
+ 			shuffleArray(shufflePlaylistArray);
+ 		}else{
+
+ 		}
+ 	}
+
+ 	function shuffleArray(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
  </script>
 
 <div id="nowPlayingBarContainer">
@@ -136,11 +215,11 @@
 
 					<div class="buttons">
 
-						<button class="controlButton shuffle" title="Shuffle">
+						<button class="controlButton shuffle" title="Shuffle" onclick="setShuffle()">
 							<img src="assets/images/icons/shuffle.png" alt="Shuffle">
 						</button>
 
-						<button class="controlButton previous" title="Previous">
+						<button class="controlButton previous" title="Previous" onclick="previousSong()">
 							<img src="assets/images/icons/previous.png" alt="Previous">
 						</button>
 
@@ -152,11 +231,11 @@
 							<img src="assets/images/icons/pause.png" alt="Pause">
 						</button>
 
-						<button class="controlButton next" title="Next">
+						<button class="controlButton next" title="Next" onclick="nextSong()">
 							<img src="assets/images/icons/next.png" alt="Next">
 						</button>
 
-						<button class="controlButton repeat" title="Repeat">
+						<button class="controlButton repeat" title="Repeat" onclick="setRepeat()">
 							<img src="assets/images/icons/repeat.png" alt="Repeat">
 						</button>
 
@@ -187,7 +266,7 @@
 			<div id="nowPlayingRight">
 				<div class="volumeBar">
 
-					<button class="controlButton volume" title="Volume button">
+					<button class="controlButton volume" title="Volume button" onclick="setMute()">
 						<img src="assets/images/icons/volume.png" alt="Volume">
 					</button>
 

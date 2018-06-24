@@ -1,6 +1,11 @@
 var currentPlaylistArray = new Array();
+var shufflePlaylistArray = new Array();
 var audioElement;
 var mouseDown = false;
+var currentIndex;
+var previousIndex;
+var repeatState = false;
+var shuffle = false;
 
 function Audio() {
 	this.audio = document.createElement('audio');
@@ -24,7 +29,11 @@ function Audio() {
 		this.audio.addEventListener("volumechange",function(){
 			//console.log("Hello")
 			updateVolumeProgressBar(this);
-		})
+		});
+
+		this.audio.addEventListener("ended",function(){
+			nextSong();
+		});
 	}
 
 	this.play = function(){
