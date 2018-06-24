@@ -99,6 +99,7 @@ html, body {
 
 .controlButton:hover {
 	cursor: pointer;
+	color: #fff;
 }
 
 .progressTime {
