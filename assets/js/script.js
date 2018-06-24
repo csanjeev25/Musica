@@ -20,6 +20,11 @@ function Audio() {
 				updateTimeProgressBar(this);
 			}
 		});
+
+		this.audio.addEventListener("volumechange",function(){
+			//console.log("Hello")
+			updateVolumeProgressBar(this);
+		})
 	}
 
 	this.play = function(){
@@ -51,4 +56,9 @@ function updateTimeProgressBar(audio){
 
 	var progress = audio.currentTime / audio.duration * 100;
 	$(".playbackBar .progress").css("width",progress + "%");
+}
+
+function updateVolumeProgressBar(audio){
+	var volume = audio.volume * 100;
+	$(".volumeBar .progress").css("width",volume+"%");
 }
