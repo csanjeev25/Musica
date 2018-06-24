@@ -93,6 +93,8 @@
 
  	function setTrack(trackId,newPlaylist,play){
 
+ 		console.log(trackId);
+
  		if(newPlaylist != currentPlaylistArray){
  			currentPlaylistArray = newPlaylist;
  			shufflePlaylistArray = currentPlaylistArray.slice();
@@ -107,7 +109,9 @@
  		pauseSong();
  		
  		$.post("includes/handlers/ajax/getSongJSON.php",{songId:trackId},function(data){
+ 			//console.log("here");
  			var track = JSON.parse(data);
+ 			//console.log(track);
  			$(".trackName span").text(track.title);
  			$.post("includes/handlers/ajax/getArtistJSON.php",{artistId:track.artist},function(data){
  				var artist = JSON.parse(data);

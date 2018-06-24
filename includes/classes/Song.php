@@ -31,6 +31,11 @@
 			$this->plays = $this->songData['plays'];
 	}
 
+	public function getId(){
+			return $this->id;
+		}
+
+
 	public function getTitle(){
 		return $this->title;
 	}

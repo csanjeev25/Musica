@@ -22,6 +22,7 @@
 			$this->artworkPath = $album['artworkPath'];
 		}
 
+		
 		public function getTitle(){
 			return $this->title;
 		}
