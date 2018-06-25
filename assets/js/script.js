@@ -83,3 +83,7 @@ function openPage(url){
 	$("body").scrollTop(0);
 	history.pushState(null,null,url);
 }
+
+function playArtistSongs(){
+	setTrack(tempPlayListArray[0],tempPlayListArray,true);
+}
