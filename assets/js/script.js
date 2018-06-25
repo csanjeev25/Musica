@@ -91,3 +91,28 @@ function openPage(url){
 function playArtistSongs(){
 	setTrack(tempPlayListArray[0],tempPlayListArray,true);
 }
+
+function createPlaylist(){
+	var popup = prompt("Please enter name of your playlist");
+
+	if(popup != null){
+		$.post("includes/handlers/ajax/createPlaylist.php",{name:popup,username:userLoggedIn}).done(function(error){
+			if(error != null){
+				alert(error);
+			}
+			openPage("yourMusic.php");
+		});
+	}
+}
+
+function deletePlaylist(playlistId){
+	var prompt = confirm("Are you sure you want to delete this playlist");
+	if(prompt){
+		$.post("includes/handlers/ajax/deletePlaylist.php",{playlistId:playlistId}).done(function(error){
+			if(error != null){
+				alert(error);
+			}
+			openPage("yourMusic.php");
+		});
+	}
+}

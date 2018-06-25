@@ -458,4 +458,22 @@ input:focus{
 	display: block;
 }
 
+.playlistContainer{
+	padding: 10px 0;
+}
+
+.gridViewContainer h2{
+	text-align: center;
+}
+
+.buttonItems .button{
+	display: block;
+	margin: 0 auto 20px auto;
+}
+
+.playlistImage{
+	border: 3px solid #282828;
+	padding: 10px;
+}
+
 
