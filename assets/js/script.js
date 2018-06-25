@@ -7,6 +7,7 @@ var currentIndex;
 var previousIndex;
 var repeatState = false;
 var shuffle = false;
+var userLoggedIn;
 
 function Audio() {
 	this.audio = document.createElement('audio');
@@ -71,4 +72,14 @@ function updateTimeProgressBar(audio){
 function updateVolumeProgressBar(audio){
 	var volume = audio.volume * 100;
 	$(".volumeBar .progress").css("width",volume+"%");
+}
+
+function openPage(url){
+	if(url.indexOf("?") == -1){
+		url = url+"?";
+	}
+	var encodeURL = encodeURI(url + "&userLoggedIn="+ userLoggedIn);
+	$("#mainContent").load(encodeURL);
+	$("body").scrollTop(0);
+	history.pushState(null,null,url);
 }

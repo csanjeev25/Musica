@@ -121,13 +121,13 @@
  				var album = JSON.parse(data);
  				$(".albumLink img").attr("src",album.artworkPath);
  			});
- 			audioElement.setTrack(track);
- 			playSong();
- 		});
- 		if(play == true){
- 			playSong();
+ 			audioElement.setTrack(track); 
+
+ 			if(play == true){
+ 				playSong();
  			//audioElement.play();
- 		}
+ 			}
+ 		});
  		
  	}
 

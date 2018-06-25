@@ -1,4 +1,4 @@
-<?php include("includes/header.php"); ?>
+<?php include("includes/includedFiles.php");?>
 
 <?php
 	if(isset($_GET['id'])){
@@ -67,5 +67,3 @@
 
  	</ul>
  </div>
-
-<?php include("includes/footer.php"); ?>

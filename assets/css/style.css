@@ -191,7 +191,13 @@ html, body {
 }
 
 .navItemLink:hover{
-	color: #fffff;
+	color: #505050;
+	cursor: pointer;
+}
+
+.gridViewImage:hover, .gridViewInfo:hover{
+	color: #505050;
+	cursor: pointer;
 }
 
 .logo{
