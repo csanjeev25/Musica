@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2018 at 04:12 PM
+-- Generation Time: Jun 25, 2018 at 07:34 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -101,6 +101,51 @@ INSERT INTO `genres` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `playlists`
+--
+
+CREATE TABLE `playlists` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `owner` varchar(50) NOT NULL,
+  `dateCreate` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `playlists`
+--
+
+INSERT INTO `playlists` (`id`, `name`, `owner`, `dateCreate`) VALUES
+(2, 'Melancholy', 'csanjeev25', '2018-06-25 23:00:10'),
+(3, 'Rock', 'csanjeev25', '2018-06-25 23:00:20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `playlistsongs`
+--
+
+CREATE TABLE `playlistsongs` (
+  `id` int(11) NOT NULL,
+  `song` int(11) NOT NULL,
+  `playlist` int(11) NOT NULL,
+  `playlistorder` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `playlistsongs`
+--
+
+INSERT INTO `playlistsongs` (`id`, `song`, `playlist`, `playlistorder`) VALUES
+(3, 45, 2, 3),
+(4, 42, 2, 2),
+(5, 9, 2, 1),
+(6, 1, 3, 1),
+(7, 22, 3, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `songs`
 --
 
@@ -121,51 +166,51 @@ CREATE TABLE `songs` (
 --
 
 INSERT INTO `songs` (`id`, `title`, `artist`, `album`, `genre`, `duration`, `path`, `albumOrder`, `plays`) VALUES
-(1, 'Radioactive', 1, 3, 2, '03:06', 'assets/music/NightVisions/ImagineDragons-Radioactive.mp3', 1, 0),
-(2, 'TipToe', 1, 3, 2, '03:14', 'assets/music/NightVisions/ImagineDragons-Tiptoe.mp3', 2, 0),
+(1, 'Radioactive', 1, 3, 2, '03:06', 'assets/music/NightVisions/ImagineDragons-Radioactive.mp3', 1, 8),
+(2, 'TipToe', 1, 3, 2, '03:14', 'assets/music/NightVisions/ImagineDragons-Tiptoe.mp3', 2, 1),
 (3, 'It\'s Time', 1, 3, 1, '04:00', 'assets/music/NightVisions/ImagineDragons-It\'sTime.mp3', 3, 2),
-(4, 'Demons', 1, 3, 3, '02:57', 'assets/music/NightVisions/ImagineDragons-Demons.mp3', 4, 0),
-(5, 'Bleeding Out', 1, 3, 2, '03:43', 'assets/music/NightVisions/ImagineDragons-BleedingOut.mp3', 5, 1),
-(6, 'Battle Cry', 1, 2, 2, '04:33', 'assets/music/Smoke+Mirrors/BattleCry.mp3', 1, 0),
-(7, 'Dream', 1, 2, 1, '04:18', 'assets/music/Smoke+Mirrors/Dream.mp3', 2, 0),
-(8, 'Friction', 1, 2, 3, '03:22', 'assets/music/Smoke+Mirrors/Friction.mp3', 3, 0),
-(9, 'I Bet My Life', 1, 2, 3, '03:12', 'assets/music/Smoke+Mirrors/IBetMyLife.mp3', 4, 3),
-(10, 'Monster', 1, 2, 2, '04:09', 'assets/music/Smoke+Mirrors/Monster.mp3', 5, 1),
-(11, 'Shots', 1, 2, 2, '03:52', 'assets/music/Smoke+Mirrors/Shots.mp3', 6, 0),
-(12, 'Warriors', 1, 2, 2, '02:50', 'assets/music/Smoke+Mirrors/Warriors.mp3', 7, 1),
-(13, 'Who Are We', 1, 2, 3, '04:09', 'assets/music/Smoke+Mirrors/WhoWeAre.mp3', 8, 2),
-(14, 'I Don\'t Know Why', 1, 1, 3, '03:10', 'assets/music/Evolve/IDon’tKnowWhy.mp3', 1, 0),
-(15, 'Walking The Wire', 1, 1, 2, '03:52', 'assets/music/Evolve/WalkingTheWire.mp3', 2, 1),
-(16, 'Whatever It Takes', 1, 1, 2, '03:21', 'assets/music/Evolve/WhateverItTakes.mp3', 3, 0),
-(17, 'Rise Up', 1, 1, 3, '03:51', 'assets/music/Evolve/05. Rise Up.mp3', 4, 0),
-(18, 'I\'ll Make It Up To You', 1, 1, 1, '04:22', 'assets/music/Evolve/06. I’ll Make It Up To You.mp3', 5, 0),
-(19, 'Yesterday', 1, 1, 3, '03:25', 'assets/music/Evolve/07. Yesterday.mp3', 6, 0),
-(20, 'Thunder', 1, 1, 3, '03:07', 'assets/music/Evolve/09. Thunder.mp3', 7, 2),
-(21, 'Believer', 1, 1, 3, '03:24', 'assets/music/Evolve/Believer.mp3', 8, 0),
-(22, 'Dancing In The Dark', 1, 1, 1, '03:55', 'assets/music/Evolve/11. Dancing In The Dark.mp3', 9, 0),
-(23, 'Levitate', 1, 1, 2, '03:18', 'assets/music/Evolve/12. Levitate.mp3', 10, 1),
-(24, 'Not Today', 1, 1, 3, '04:20', 'assets/music/Evolve/13. Not Today.mp3', 11, 5),
-(25, 'Believer (Kaskade Remix)', 1, 1, 3, '03:10', 'assets/music/Evolve/14. Believer (Kaskade Remix).mp3', 12, 0),
-(26, 'Yellow', 2, 4, 8, '04:29', 'assets/music/Parachutes/05 - Yellow.mp3', 1, 0),
-(27, 'Everything\'s Not Lost.mp3', 2, 4, 8, '07:15', 'assets/music/Parachutes/10 - Everything\'s Not Lost.mp3', 2, 3),
-(28, 'Yellow', 2, 4, 8, '04:29', 'assets/music/Parachutes/05 - Yellow.mp3', 1, 1),
-(29, 'Everything\'s Not Lost', 2, 4, 8, '07:15', 'assets/music/Parachutes/10 - Everything\'s Not Lost.mp3', 2, 1),
-(30, 'Yellow', 2, 4, 8, '04:29', 'assets/music/Parachutes/05 - Yellow.mp3', 1, 0),
-(31, 'Everything\'s Not Lost', 2, 4, 8, '07:15', 'assets/music/Parachutes/10 - Everything\'s Not Lost.mp3', 2, 0),
-(32, 'Lost!', 2, 5, 1, '03:55', 'assets/music/Viva La Vida Or Death And All His Friends/03 - Lost!.mp3', 1, 0),
-(33, 'Viva La Vida', 2, 5, 2, '04:01', 'assets/music/Viva La Vida Or Death And All His Friends/07 - Viva La Vida.mp3', 2, 0),
-(34, 'Violet Hill', 1, 5, 1, '03:42', 'assets/music/Viva La Vida Or Death And All His Friends/08 - Violet Hill.mp3', 3, 0),
-(35, 'Lost (Bonus Track)', 2, 5, 8, '03:44', 'assets/music/Viva La Vida Or Death And All His Friends/11 - Lost (Bonus Track).mp3', 4, 0),
-(36, 'Stan', 3, 6, 7, '06:44', 'assets/music/The Marshall Mathers LP/03 Stan.mp3', 1, 0),
-(37, 'The Way I Am', 3, 6, 7, '04:50', 'assets/music/The Marshall Mathers LP/07 The Way I Am.mp3', 2, 0),
-(38, 'The Real Slim Shady', 3, 6, 7, '04:44', 'assets/music/The Marshall Mathers LP/08 The Real Slim Shady.mp3', 3, 1),
-(39, 'Not Afraid', 3, 7, 7, '04:08', 'assets/music/Recovery/07-eminem-not_afraid-fum.mp3', 1, 1),
-(40, 'Space Bound', 3, 7, 7, '04:38', 'assets/music/Recovery/10-eminem-space_bound-fum.mp3', 2, 0),
-(41, 'Love The Way You Lie (Ft.Rihanna)', 3, 7, 7, '04:23', 'assets/music/Recovery/15-eminem-love_the_way_you_lie_(feat._rihanna)-fum.mp3', 3, 1),
-(42, 'I\'ll Keep You Safe', 4, 8, 4, '04:31', 'assets/music/atlas/03 - I\'ll Keep You Safe.flac', 1, 0),
-(43, 'Saturn', 4, 8, 4, '04:49', 'assets/music/atlas/18 - Saturn.flac', 2, 0),
-(44, 'Lego House', 5, 9, 3, '03:03', 'assets/music/Plus/09 Lego House.mp3', 1, 1),
-(45, 'Already Gone', 4, 8, 4, '04:00', 'assets/music/atlas/Already Gone.mp3', 3, 0);
+(4, 'Demons', 1, 3, 3, '02:57', 'assets/music/NightVisions/ImagineDragons-Demons.mp3', 4, 16),
+(5, 'Bleeding Out', 1, 3, 2, '03:43', 'assets/music/NightVisions/ImagineDragons-BleedingOut.mp3', 5, 5),
+(6, 'Battle Cry', 1, 2, 2, '04:33', 'assets/music/Smoke+Mirrors/BattleCry.mp3', 1, 3),
+(7, 'Dream', 1, 2, 1, '04:18', 'assets/music/Smoke+Mirrors/Dream.mp3', 2, 2),
+(8, 'Friction', 1, 2, 3, '03:22', 'assets/music/Smoke+Mirrors/Friction.mp3', 3, 1),
+(9, 'I Bet My Life', 1, 2, 3, '03:12', 'assets/music/Smoke+Mirrors/IBetMyLife.mp3', 4, 11),
+(10, 'Monster', 1, 2, 2, '04:09', 'assets/music/Smoke+Mirrors/Monster.mp3', 5, 4),
+(11, 'Shots', 1, 2, 2, '03:52', 'assets/music/Smoke+Mirrors/Shots.mp3', 6, 1),
+(12, 'Warriors', 1, 2, 2, '02:50', 'assets/music/Smoke+Mirrors/Warriors.mp3', 7, 6),
+(13, 'Who Are We', 1, 2, 3, '04:09', 'assets/music/Smoke+Mirrors/WhoWeAre.mp3', 8, 6),
+(14, 'I Don\'t Know Why', 1, 1, 3, '03:10', 'assets/music/Evolve/IDontKnowWhy.mp3', 1, 10),
+(15, 'Walking The Wire', 1, 1, 2, '03:52', 'assets/music/Evolve/WalkingTheWire.mp3', 2, 19),
+(16, 'Whatever It Takes', 1, 1, 2, '03:21', 'assets/music/Evolve/WhateverItTakes.mp3', 3, 15),
+(17, 'Rise Up', 1, 1, 3, '03:51', 'assets/music/Evolve/05. Rise Up.mp3', 4, 14),
+(18, 'I\'ll Make It Up To You', 1, 1, 1, '04:22', 'assets/music/Evolve/06. Ill Make It Up To You.mp3', 5, 2),
+(19, 'Yesterday', 1, 1, 3, '03:25', 'assets/music/Evolve/07. Yesterday.mp3', 6, 6),
+(20, 'Thunder', 1, 1, 3, '03:07', 'assets/music/Evolve/09. Thunder.mp3', 7, 11),
+(21, 'Believer', 1, 1, 3, '03:24', 'assets/music/Evolve/Believer.mp3', 8, 12),
+(22, 'Dancing In The Dark', 1, 1, 1, '03:55', 'assets/music/Evolve/11. Dancing In The Dark.mp3', 9, 5),
+(23, 'Levitate', 1, 1, 2, '03:18', 'assets/music/Evolve/12. Levitate.mp3', 10, 6),
+(24, 'Not Today', 1, 1, 3, '04:20', 'assets/music/Evolve/13. Not Today.mp3', 11, 16),
+(25, 'Believer (Kaskade Remix)', 1, 1, 3, '03:10', 'assets/music/Evolve/14. Believer (Kaskade Remix).mp3', 12, 6),
+(26, 'Yellow', 2, 4, 8, '04:29', 'assets/music/Parachutes/05 - Yellow.mp3', 1, 7),
+(27, 'Everything\'s Not Lost.mp3', 2, 4, 8, '07:15', 'assets/music/Parachutes/10 - Everything\'s Not Lost.mp3', 2, 6),
+(28, 'Yellow', 2, 4, 8, '04:29', 'assets/music/Parachutes/05 - Yellow.mp3', 1, 7),
+(29, 'Everything\'s Not Lost', 2, 4, 8, '07:15', 'assets/music/Parachutes/10 - Everything\'s Not Lost.mp3', 2, 3),
+(30, 'Yellow', 2, 4, 8, '04:29', 'assets/music/Parachutes/05 - Yellow.mp3', 1, 4),
+(31, 'Everything\'s Not Lost', 2, 4, 8, '07:15', 'assets/music/Parachutes/10 - Everything\'s Not Lost.mp3', 2, 13),
+(32, 'Lost!', 2, 5, 1, '03:55', 'assets/music/Viva La Vida Or Death And All His Friends/03 - Lost!.mp3', 1, 6),
+(33, 'Viva La Vida', 2, 5, 2, '04:01', 'assets/music/Viva La Vida Or Death And All His Friends/07 - Viva La Vida.mp3', 2, 4),
+(34, 'Violet Hill', 1, 5, 1, '03:42', 'assets/music/Viva La Vida Or Death And All His Friends/08 - Violet Hill.mp3', 3, 1),
+(35, 'Lost (Bonus Track)', 2, 5, 8, '03:44', 'assets/music/Viva La Vida Or Death And All His Friends/11 - Lost (Bonus Track).mp3', 4, 4),
+(36, 'Stan', 3, 6, 7, '06:44', 'assets/music/The Marshall Mathers LP/03 Stan.mp3', 1, 4),
+(37, 'The Way I Am', 3, 6, 7, '04:50', 'assets/music/The Marshall Mathers LP/07 The Way I Am.mp3', 2, 5),
+(38, 'The Real Slim Shady', 3, 6, 7, '04:44', 'assets/music/The Marshall Mathers LP/08 The Real Slim Shady.mp3', 3, 16),
+(39, 'Not Afraid', 3, 7, 7, '04:08', 'assets/music/Recovery/07-eminem-not_afraid-fum.mp3', 1, 6),
+(40, 'Space Bound', 3, 7, 7, '04:38', 'assets/music/Recovery/10-eminem-space_bound-fum.mp3', 2, 2),
+(41, 'Love The Way You Lie (Ft.Rihanna)', 3, 7, 7, '04:23', 'assets/music/Recovery/15-eminem-love_the_way_you_lie_(feat._rihanna)-fum.mp3', 3, 11),
+(42, 'I\'ll Keep You Safe', 4, 8, 4, '04:31', 'assets/music/atlas/03 - I\'ll Keep You Safe.flac', 1, 6),
+(43, 'Saturn', 4, 8, 4, '04:49', 'assets/music/atlas/18 - Saturn.flac', 2, 6),
+(44, 'Lego House', 5, 9, 3, '03:03', 'assets/music/Plus/09 Lego House.mp3', 1, 11),
+(45, 'Already Gone', 4, 8, 4, '04:00', 'assets/music/atlas/Already Gone.mp3', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -218,6 +263,20 @@ ALTER TABLE `genres`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `playlists`
+--
+ALTER TABLE `playlists`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `playlistsongs`
+--
+ALTER TABLE `playlistsongs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `song` (`song`),
+  ADD KEY `playlist` (`playlist`);
+
+--
 -- Indexes for table `songs`
 --
 ALTER TABLE `songs`
@@ -252,6 +311,16 @@ ALTER TABLE `artists`
 ALTER TABLE `genres`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
+-- AUTO_INCREMENT for table `playlists`
+--
+ALTER TABLE `playlists`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `playlistsongs`
+--
+ALTER TABLE `playlistsongs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
 -- AUTO_INCREMENT for table `songs`
 --
 ALTER TABLE `songs`
@@ -271,6 +340,13 @@ ALTER TABLE `users`
 ALTER TABLE `albums`
   ADD CONSTRAINT `albums_ibfk_1` FOREIGN KEY (`artist`) REFERENCES `artists` (`id`),
   ADD CONSTRAINT `albums_ibfk_2` FOREIGN KEY (`genre`) REFERENCES `genres` (`id`);
+
+--
+-- Constraints for table `playlistsongs`
+--
+ALTER TABLE `playlistsongs`
+  ADD CONSTRAINT `playlistsongs_ibfk_1` FOREIGN KEY (`song`) REFERENCES `songs` (`id`),
+  ADD CONSTRAINT `playlistsongs_ibfk_2` FOREIGN KEY (`playlist`) REFERENCES `playlists` (`id`);
 
 --
 -- Constraints for table `songs`
