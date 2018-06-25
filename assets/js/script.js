@@ -8,6 +8,7 @@ var previousIndex;
 var repeatState = false;
 var shuffle = false;
 var userLoggedIn;
+var timer;
 
 function Audio() {
 	this.audio = document.createElement('audio');
@@ -75,6 +76,9 @@ function updateVolumeProgressBar(audio){
 }
 
 function openPage(url){
+	if(timer != null){
+		clearTimeout(timer);
+	}
 	if(url.indexOf("?") == -1){
 		url = url+"?";
 	}
