@@ -51,9 +51,9 @@ include("includes/includedFiles.php");
  						</div>
 
  						<div class='trackOptions'>
- 							<img class='optionsButton' src='assets/images/icons/more.png'>
+ 						<input type='hidden' class='songId' value='".$playlistSong->getId()."'>
+ 							<img class='optionsButton' src='assets/images/icons/more.png' onclick='showOptionsMenu(this)'>
  						</div>
-
  						<div class='trackDuration'>
  							<span class='duration'>".$playlistSong->getDuration()."</span>
  						</div>
@@ -72,3 +72,10 @@ include("includes/includedFiles.php");
 
  	</ul>
  </div>
+
+ <nav class="optionsMenu">
+ 	<input type="hidden" class="songId">
+ 	<?php echo(Playlist::getPlaylistDropDown($conn, $userLoggedIn->getUsername())); ?>
+ 	<div class='item' onclick="deleteFromPlaylist(this,'<?php echo($playlistId); ?>')">Remove From Playlist</div>
+ 	<div class="item">Copy song link</div>
+ </nav>

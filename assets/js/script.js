@@ -10,6 +10,32 @@ var shuffle = false;
 var userLoggedIn;
 var timer;
 
+$(document).click(function(click){
+	var target = $(click.target);
+	if(!target.hasClass("item") && !target.hasClass("optionsButton")){
+		hideOptionsMenu();
+	}
+});
+
+$(window).scroll(function(){
+	hideOptionsMenu();
+});
+
+$(document).on("change","select.playlist",function(){
+	var select = $(this);
+	var playlistId = $(this).val();
+	var songId = $(this).prev(".songId").val();
+
+	$.post("includes/handlers/ajax/addToPlaylist.php",{playlistId:playlistId,songId:songId})
+	.done(function(error){
+		hideOptionsMenu();
+		select.val("");
+		if(error != ""){
+			console.log(error);
+		}
+	});
+});
+
 function Audio() {
 	this.audio = document.createElement('audio');
 	this.currentlyPlaying;
@@ -115,4 +141,38 @@ function deletePlaylist(playlistId){
 			openPage("yourMusic.php");
 		});
 	}
+}
+
+function showOptionsMenu(button){
+	var songId = $(button).prevAll(".songId").val();
+	var menu = $(".optionsMenu");
+	menu.find(".songId").val(songId);
+	var menuWidth = menu.width();
+	var scrollTop = $(window).scrollTop();
+	var elementOffset = $(button).offset().top;
+
+	var top = elementOffset - scrollTop;
+	var left = $(button).position().left;
+	menu.css({"top":top+"px","left":left - menuWidth +"px","display":"inline"});
+}
+
+function hideOptionsMenu(){
+	var menu = $(".optionsMenu");
+	if(menu.css("display") != "none"){
+		menu.css("display","none");
+	}
+}
+
+function deleteFromPlaylist(button,playlistId){
+	var songId = $(button).prevAll(".songId").val();
+	$.post("includes/handlers/ajax/deleteFromPlaylist.php",{playlistId:playlistId,songId:songId})
+	.done(function(error){
+		//console.log("Valar Morghulis");
+		if(error != ""){
+				alert(error);
+				console.log("error");
+				return;
+		}
+		openPage("playlist.php?id=" + playlistId);
+	});
 }
