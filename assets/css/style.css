@@ -513,3 +513,21 @@ input:focus{
 .userInfo h1{
 	text-align: center;
 }
+
+.userDetails{
+	padding: 20px;
+}
+
+.userDetails .container h2{
+	text-align: center;
+}
+
+.userDetails .container .email,.userDetails .container input["password"], .userDetails .container .button {
+	display: block;
+	margin: 16px auto;
+}
+
+.userDetails .container .message{
+	color: #2ebd59;
+	font-weight: 300;
+}
